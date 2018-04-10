@@ -1,0 +1,82 @@
+version: '2'
+
+services:
+  nginx:
+      image: imaginationmedia/magento2:nginx
+#      build:
+#          context: .
+#          dockerfile: ./images/nginx/Dockerfile
+      ports:
+          - 80:80
+      volumes:
+          - ./src:/var/www/html
+      depends_on:
+          - db
+      links:
+          - db
+      networks:
+          - magento2-network
+  fpm:
+      image: imaginationmedia/magento2:php7.1-fpm
+#      build:
+#          context: .
+#          dockerfile: ./images/fpm/Dockerfile
+      ports:
+          - 9000
+      volumes:
+          - ./src:/var/www/html
+      environment:
+          - "DB_HOST=db"
+          - "MYSQL_DATABASE=magento"
+  db:
+      image: percona:5.7
+      ports:
+          - 3300:3306
+      environment:
+          - MYSQL_ROOT_PASSWORD=root
+          - MYSQL_DATABASE=magento
+          - MYSQL_USER=magento
+          - MYSQL_PASSWORD=magento
+      volumes:
+          - dbdata:/var/lib/mysql
+      networks:
+          - magento2-network
+  redis:
+      image: redis
+      ports:
+          - 6379
+      networks:
+          - magento2-network
+
+  redis-session:
+      image: redis
+      ports:
+          - 6379
+      networks:
+          - magento2-network
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      environment:
+          - PMA_HOST=db
+          - PMA_USER=root
+          - PMA_PASSWORD=root
+          - MYSQL_ROOT_PASSWORD=root
+      ports:
+          - 8088:80
+      networks:
+          - magento2-network
+  mailhog:
+      image: mailhog/mailhog
+      ports:
+          - 1025:1025
+          - 8025:8025
+      networks:
+          - magento2-network
+
+networks:
+  magento2-network:
+      driver: bridge
+
+volumes:
+  dbdata:
+      driver: local
