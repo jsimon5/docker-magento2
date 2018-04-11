@@ -81,6 +81,10 @@ RUN wget https://files.magerun.net/n98-magerun2.phar \
 RUN usermod -u 1000 www-data
 #RUN chsh -s /bin/bash www-data
 
+# Composer and NPM folder
+RUN mkdir /var/www/.composer ; chown -R www-data:1000 /var/www/.composer
+RUN mkdir /var/www/.npm ; chown -R www-data:1000 /var/www/.npm
+
 # Install Cron
 RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/update/cron.php\n' >> /etc/crontab
 RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/bin/magento cron:run\n' >> /etc/crontab
