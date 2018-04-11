@@ -57,7 +57,7 @@ RUN apt-get update \
 RUN	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
 RUN composer global require hirak/prestissimo
 
-# Install Node, NVM, NPM and Grunt
+# Install Node, NVM, NPM
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
   	&& apt-get install -y nodejs build-essential \
     && curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh
@@ -79,19 +79,17 @@ RUN wget https://files.magerun.net/n98-magerun2.phar \
 
 # User
 RUN usermod -u 1000 www-data
-RUN chsh -s /bin/bash www-data
+#RUN chsh -s /bin/bash www-data
 
 # Install Cron
 RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/update/cron.php\n' >> /etc/crontab
 RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/bin/magento cron:run\n' >> /etc/crontab
 RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/bin/magento setup:cron:run\n#\n' >> /etc/crontab
 
-ADD config/xdebug.ini /usr/local/etc/php/conf.d/xdebug-settings.ini
-ADD config/www.conf /usr/local/etc/php-fpm.d/
+ADD config/php-fpm.conf /usr/local/etc/php-fpm.conf
 ADD config/php.ini /usr/local/etc/php/conf.d/magento.ini
-ADD config/php-fpm.conf /usr/local/etc/
-
-USER www-data:www-data
+ADD config/xdebug.ini /usr/local/etc/php/conf.d/xdebug-settings.ini
+ADD config/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 VOLUME /var/www
 
