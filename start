@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+
+export os=$(uname)
+
+if [ ! $os == "Linux" ]; then
+    sudo ifconfig lo0 alias 10.254.254.254
+    docker-sync start
+fi
+
 docker-compose up -d && \
 version=$(git describe --tags $(git rev-list --tags --max-count=1))
 echo "
