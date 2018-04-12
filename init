@@ -17,14 +17,17 @@ if [ "$2" == "clone" ]; then
     echo "Git clone done" >> system.log
 fi
 
-if [ ! -d "~/.composer" ]; then
+if [ -d "~/.composer" ]; then
     echo "Creating .compose" >> system.log
+    mkdir ~/.composer
 fi
-if [ ! -d "~/.npm" ]; then
+if [ -d "~/.npm" ]; then
     echo "Creating .npm" >> system.log
+    mkdir ~/.npm
 fi
-if [ ! -d "~/.nvm" ]; then
+if [ -d "~/.nvm" ]; then
     echo "Creating .nvm" >> system.log
+    mkdir ~/.nvm
 fi
 
 git config --global core.autocrlf false
