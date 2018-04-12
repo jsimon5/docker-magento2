@@ -11,7 +11,7 @@ services:
           - ./src:/var/www/html
           - ~/.composer:/var/www/.composer
           - ~/.npm:/var/www/.npm
-          - sockdata:/sock
+          - ~/.nvm:/var/www/.nvm
       depends_on:
           - db
           - phpfpm
@@ -26,11 +26,13 @@ services:
 #          context: ./images/fpm/
       ports:
           - 9000:9000
+      environment:
+          XDEBUG_CONFIG: "remote_host=dev.local"
+          PHP_IDE_CONFIG: "serverName=Docker"
       volumes:
           - ./src:/var/www/html
           - ~/.composer:/var/www/.composer
           - ~/.npm:/var/www/.npm
-          - sockdata:/sock
       depends_on:
           - db
       links:
@@ -90,7 +92,5 @@ networks:
       driver: bridge
 
 volumes:
-  sockdata:
-      driver: local
   dbdata:
       driver: local
