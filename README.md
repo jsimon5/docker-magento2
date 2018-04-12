@@ -6,6 +6,8 @@
 
 [![Build Status](https://travis-ci.org/Imagination-Media/docker-magento2.svg?branch=master)](https://travis-ci.org/Imagination-Media/docker-magento2)
 [![Docker Pulls](https://img.shields.io/docker/pulls/imaginationmedia/magento2.svg)](https://hub.docker.com/r/imaginationmedia/magento2/)
+[![](https://images.microbadger.com/badges/image/imaginationmedia/magento2:php7.1-fpm.svg)](https://microbadger.com/images/imaginationmedia/magento2:php7.1-fpm)
+[![Releases](https://img.shields.io/github/release/Imagination-Media/docker-magento2.svg)](https://github.com/Imagination-Media/docker-magento2/releases)
 
 ### Requirements
 

@@ -33,8 +33,8 @@ php -f ./bin/magento sampledata:deploy \
 && php -f ./bin/magento cache:flush;
 mv package.json.sample package.json ; mv Gruntfile.js.sample Gruntfile.js;
 npm i;
-php -f ./bin/magento deploy:mode:set production \
-&& composer dump-autoload -o \
+php -f ./bin/magento deploy:mode:set production; \
+composer dump-autoload -o \
 && clear && echo "
 ===================== 🚀 Done 🚀 ===================
 
