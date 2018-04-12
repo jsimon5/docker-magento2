@@ -17,7 +17,7 @@ services:
           - db
           - phpfpm
       networks:
-          - magento2-network
+          - <project_name>-network
 
   phpfpm:
       image: imaginationmedia/magento2:php7.1-fpm
@@ -26,7 +26,7 @@ services:
       ports:
           - 9000:9000
       environment:
-          XDEBUG_CONFIG: "remote_host=dev.local"
+          XDEBUG_CONFIG: "remote_host=10.254.254.254 remote_connect_back=0"
           PHP_IDE_CONFIG: "serverName=Docker"
       volumes_from:
             - appdata
@@ -38,7 +38,7 @@ services:
           - "DB_HOST=db"
           - "MYSQL_DATABASE=magento"
       networks:
-          - magento2-network
+          - <project_name>-network
 
   db:
       image: percona:5.7
@@ -52,21 +52,21 @@ services:
       volumes:
           - dbdata:/var/lib/mysql
       networks:
-          - magento2-network
+          - <project_name>-network
 
   redis:
       image: redis
       ports:
           - 6379
       networks:
-          - magento2-network
+          - <project_name>-network
 
   redis-session:
       image: redis
       ports:
           - 6379
       networks:
-          - magento2-network
+          - <project_name>-network
 
   phpmyadmin:
       image: phpmyadmin/phpmyadmin
@@ -78,7 +78,7 @@ services:
       ports:
           - 8080:80
       networks:
-          - magento2-network
+          - <project_name>-network
 
   mailhog:
       image: mailhog/mailhog
@@ -86,20 +86,22 @@ services:
           - 1025:1025
           - 8025:8025
       networks:
-          - magento2-network
+          - <project_name>-network
 
   appdata:
       image: tianon/true
       volumes:
-          - ./src:/var/www/html
+          - <project_name>-sync:/var/www/html:nocopy
           - ~/.composer:/var/www/.composer
           - ~/.npm:/var/www/.npm
           - ~/.nvm:/var/www/.nvm
 
 networks:
-  magento2-network:
+  <project_name>-network:
       driver: bridge
 
 volumes:
+  <project_name>-sync:
+      external: true
   dbdata:
       driver: local

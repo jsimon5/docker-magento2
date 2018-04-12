@@ -1,1 +1,5 @@
 /src/*
+docker-compose.yml
+docker-sync.yml
+localconfig
+system.log

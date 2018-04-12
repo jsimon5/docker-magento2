@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-if [ -z "$1" ]
-  then
+if [ -z "$1" ]; then
     docker-compose exec --user www-data phpfpm bash
-else
+elif [ "$1" == root ]; then
     docker-compose exec --user $@ phpfpm bash
+else
+    docker-compose exec --user www-data -T phpfpm $@
 fi
