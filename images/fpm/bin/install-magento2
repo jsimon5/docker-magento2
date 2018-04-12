@@ -25,7 +25,7 @@ chmod u+w -R ./var ./vendor ./pub/static ./pub/media ./app/etc \
 && mv ./app/etc/env.php ./app/etc/env.original.php;
 cp -rv /var/www/env.sample.php ./app/etc/env.php;
 php -f ./bin/magento indexer:set-mode schedule;
-&& php -f ./bin/magento sampledata:deploy \
+php -f ./bin/magento sampledata:deploy \
 && php -f ./bin/magento setup:upgrade \
 && php -f ./bin/magento indexer:reindex \
 && php -f ./bin/magento cache:flush;
