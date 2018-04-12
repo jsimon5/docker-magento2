@@ -1,0 +1,105 @@
+version: '2'
+
+services:
+
+  nginx:
+      image: imaginationmedia/magento2:nginx
+#      build:
+#          context: ./images/nginx/
+      ports:
+          - 80:80
+      volumes_from:
+            - appdata
+      depends_on:
+          - db
+          - phpfpm
+      links:
+          - db
+          - phpfpm
+      networks:
+          - magento2-network
+
+  phpfpm:
+      image: imaginationmedia/magento2:php7.1-fpm
+#      build:
+#          context: ./images/fpm/
+      ports:
+          - 9000:9000
+      environment:
+          XDEBUG_CONFIG: "remote_host=dev.local"
+          PHP_IDE_CONFIG: "serverName=Docker"
+      volumes_from:
+            - appdata
+      depends_on:
+          - db
+      links:
+          - db
+      environment:
+          - "DB_HOST=db"
+          - "MYSQL_DATABASE=magento"
+      networks:
+          - magento2-network
+
+  db:
+      image: percona:5.7
+      ports:
+          - 3300:3306
+      environment:
+          - MYSQL_ROOT_PASSWORD=root
+          - MYSQL_DATABASE=magento
+          - MYSQL_USER=magento
+          - MYSQL_PASSWORD=magento
+      volumes:
+          - dbdata:/var/lib/mysql
+      networks:
+          - magento2-network
+
+  redis:
+      image: redis
+      ports:
+          - 6379
+      networks:
+          - magento2-network
+
+  redis-session:
+      image: redis
+      ports:
+          - 6379
+      networks:
+          - magento2-network
+
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      environment:
+          - PMA_HOST=db
+          - PMA_USER=root
+          - PMA_PASSWORD=root
+          - MYSQL_ROOT_PASSWORD=root
+      ports:
+          - 8080:80
+      networks:
+          - magento2-network
+
+  mailhog:
+      image: mailhog/mailhog
+      ports:
+          - 1025:1025
+          - 8025:8025
+      networks:
+          - magento2-network
+
+  appdata:
+      image: tianon/true
+      volumes:
+          - ./src:/var/www/html
+          - ~/.composer:/var/www/.composer
+          - ~/.npm:/var/www/.npm
+          - ~/.nvm:/var/www/.nvm
+
+networks:
+  magento2-network:
+      driver: bridge
+
+volumes:
+  dbdata:
+      driver: local
