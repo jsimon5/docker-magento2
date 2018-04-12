@@ -17,11 +17,9 @@ before_install:
 
 script:
     - chmod -R u+x ./*
-    - chmod -R u+x $HOME/.composer
-    - chmod -R u+x $HOME/.npm
-    - chmod -R u+x $HOME/.nvm
     - ./init travisci
     - rm -rf src/*
     - ./shell chmod -R 777 /var/www
     - echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > $HOME/.composer/auth.json
+    - ./shell fix-permission
     - ./shell install-magento2

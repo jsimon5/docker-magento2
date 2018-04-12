@@ -34,8 +34,7 @@ php -f ./bin/magento sampledata:deploy \
 mv package.json.sample package.json ; mv Gruntfile.js.sample Gruntfile.js;
 npm i;
 php -f ./bin/magento deploy:mode:set production && \
-composer dump-autoload -o; \
-clear && echo "
+clear; echo "
 ===================== 🚀 Done 🚀 ===================
 
       Magento 2 Installed successfully!
