@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ -s "/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini" ]; then
+   mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.iniDISABLE \
+   && echo '========= XDebug was disabled ========='
+else
+  mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.iniDISABLE /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+  && echo '========= XDebug was enabled ========='
+fi

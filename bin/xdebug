@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+docker-compose exec --user root phpfpm xdebug
+docker-compose restart nginx phpfpm

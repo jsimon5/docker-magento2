@@ -71,7 +71,7 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 
 # Install XDebug
 RUN yes | pecl install xdebug && \
-	 echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.iniOLD
+	 echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.iniDISABLE
 
 # Install Mhsendmail
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install golang-go \
