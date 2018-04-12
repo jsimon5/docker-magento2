@@ -19,5 +19,6 @@ script:
     - chmod -R u+x ./*
     - ./init travisci
     - rm -rf src/*
-    - echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > auth.json
+    - ./shell chmod -R 777 /var/www
+    - echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > $HOME/.composer/auth.json
     - ./shell install-magento2
