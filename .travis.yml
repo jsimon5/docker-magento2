@@ -2,21 +2,22 @@ services:
   - docker
 
 env:
-  DOCKER_COMPOSE_VERSION: 1.6.2
+  DOCKER_COMPOSE_VERSION: 1.8.0
 
-directories:
-  - $HOME/.composer/cache/files
-  - $HOME/.npm
+cache:
+    directories:
+      - $HOME/.composer/cache/files
+      - $HOME/.npm
 
 before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+    - sudo rm /usr/local/bin/docker-compose
+    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname   -s`-`uname -m` > docker-compose
+    - chmod +x docker-compose
+    - sudo mv docker-compose /usr/local/bin
 
 script:
-  - chmod -R u+x ./*
-  - ./init travisci
-  - rm -rf src/*
-  - echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > auth.json
-  - ./shell install-magento2
+    - chmod -R u+x ./*
+    - ./init travisci
+    - rm -rf src/*
+    - echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > auth.json
+    - ./shell install-magento2
