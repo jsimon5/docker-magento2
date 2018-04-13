@@ -21,11 +21,13 @@ syncs:
     'var/view_preprocessed',
     'var/session',
     'var/tmp',
+    # 'var/log/system.log',
+    # 'var/log/debug.log',
     'node_modules',
     'generated/*',
     'pub/static/*',
-    'pub/media/*',
-    'vendor/*'
+    'pub/media/*'
+    # 'vendor/*'
     ]
     watch_excludes: [
     '.idea',
@@ -40,9 +42,12 @@ syncs:
     'var/view_preprocessed',
     'var/session',
     'var/tmp',
+    'var/log/system.log',
+    'var/log/debug.log',
     'node_modules',
     'generated/*',
     'pub/static/*',
     'pub/media/*',
+    'update/*',
     'vendor/*'
     ]
