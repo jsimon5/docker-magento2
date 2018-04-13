@@ -1,4 +1,5 @@
 /src/*
+.docker-sync/
 docker-compose.yml
 docker-sync.yml
 localconfig

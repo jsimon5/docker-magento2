@@ -1,1 +1,2 @@
 #!/usr/bin/env bash
+docker-compose exec --user www-data -T phpfpm install-magento2

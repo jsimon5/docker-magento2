@@ -4,6 +4,7 @@ if [ $@ ]; then
 else
   composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . ;
 fi
+composer dump-autoload -o; \ 
 chmod u+w -R ./var ./vendor ./pub/static ./pub/media ./app/etc \
 && chmod u+x ./bin/magento \
 && php -f ./bin/magento setup:install --base-url=http://dev.local/ \
@@ -25,15 +26,16 @@ chmod u+w -R ./var ./vendor ./pub/static ./pub/media ./app/etc \
 && mv ./app/etc/env.php ./app/etc/env.original.php;
 cp -rv /var/www/env.sample.php ./app/etc/env.php;
 php -f ./bin/magento indexer:set-mode schedule;
-&& php -f ./bin/magento sampledata:deploy \
+cp /var/www/.composer/auth.json /var/www/html/var/composer_home/auth.json;
+php -f ./bin/magento sampledata:deploy \
 && php -f ./bin/magento setup:upgrade \
+&& php -f ./bin/magento setup:static-content:deploy \
 && php -f ./bin/magento indexer:reindex \
 && php -f ./bin/magento cache:flush;
 mv package.json.sample package.json ; mv Gruntfile.js.sample Gruntfile.js;
 npm i;
-php -f ./bin/magento deploy:mode:set production \
-&& composer dump-autoload -o \
-&& clear && echo "
+php -f ./bin/magento deploy:mode:set production && \
+clear; echo "
 ===================== 🚀 Done 🚀 ===================
 
       Magento 2 Installed successfully!
