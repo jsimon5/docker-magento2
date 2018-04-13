@@ -24,6 +24,55 @@ Install [Docker](https://docs.docker.com/docker-for-windows/install/), [Docker-c
 
 Install [Docker](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/) and [Docker-compose](https://docs.docker.com/compose/install/#install-compose).
 
+### How to use?
+
+#### Automatic method
+
+Just run these commands below in your terminal, change the MYMAGENTO2 to use the name of your project:
+
+```
+
+curl -s https://raw.githubusercontent.com/Imagination-Media/docker-magento2/master/init | bash -s MYMAGENTO2 clone
+cd MYMAGENTO2
+rm -rf src/*
+./shell install-magento2
+
+```
+
+#### Or cloning this repository
+
+You can also clone this repository and run these commands:
+
+```
+
+./init MYMAGENTO2
+rm -rf src/*
+./shell install-magento2
+
+```
+
+### Panels
+
+Enjoy your new panels!
+
+**Web server:** http://dev.local/
+
+**PHPMyAdmin:** http://dev.local:8080
+
+**Local emails:** http://dev.local:8025
+
+### Features commands
+
+| Commands  | Description  | Options & Examples |
+|---|---|---|
+| `./init`  | If you didn't use the CURL setup command above, please use this command changing the name of the project.  | `./init MYMAGENTO2` |
+| `./start`  | If you continuing not using the CURL you can start your container manually  | |
+| `./stop`  | Stop your project containers  | |
+| `./kill`  | Stops containers and removes containers, networks, volumes, and images created to the specific project  | |
+| `./shell`  | Access your container  | `./shell root` or `./shell ls` | |
+| `./magerun`  | Use the Magerun and Magento CLI commands as you want | |
+| `./xdebug`  |  Enable / Disable the XDebug | |
+
 ### License
 
 Apache © 2018 [Imagination Media](https://github.com/Imagination-Media) and [contributors](https://github.com/Imagination-Media/docker-magento2/graphs/contributors).

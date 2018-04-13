@@ -12,6 +12,13 @@ else
     export project_name=$1
 fi
 
+if ! grep -F "dev.local" /etc/hosts
+then
+    sudo -- sh -c -e "echo '127.0.0.1   dev.local' >> /etc/hosts";
+fi
+
+exit
+
 if [ "$2" == "clone" ]; then
     git clone https://github.com/Imagination-Media/docker-magento2 $project_name && cd $project_name;
     echo "Git clone done" >> system.log
