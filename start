@@ -22,3 +22,7 @@ echo "
       ✉️ Local emails: http://localhost:8025
 
 ===================== 🚀 Done 🚀 ==================="
+
+if [ ! $os == "Linux" ]; then
+    docker-sync sync
+fi
