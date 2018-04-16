@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export os=$(uname)
+
 if [ -f system.log ]; then
     rm system.log
 fi
@@ -14,10 +16,12 @@ fi
 
 if ! grep -F "dev.local" /etc/hosts
 then
-    sudo -- sh -c -e "echo '127.0.0.1   dev.local' >> /etc/hosts";
+    if [ ! $os == "Linux" ]; then        
+        sudo -- sh -c -e "echo '10.254.254.254   dev.local' >> /etc/hosts";
+    else
+        sudo -- sh -c -e "echo '127.0.0.1   dev.local' >> /etc/hosts";
+    fi
 fi
-
-exit
 
 if [ "$2" == "clone" ]; then
     git clone https://github.com/Imagination-Media/docker-magento2 $project_name && cd $project_name;
