@@ -14,11 +14,18 @@
 
 **MacOS:**
 
-Install [Docker](https://docs.docker.com/docker-for-mac/install/), [Docker-compose](https://docs.docker.com/compose/install/#install-compose) and [Docker-sync](https://github.com/EugenMayer/docker-sync/wiki/docker-sync-on-OSX).
+Install [Docker](https://download.docker.com/mac/stable/Docker.dmg) and run:
+
+```
+    gem install docker-sync
+    brew install unison
+    brew install eugenmayer/dockersync/unox
+
+```
 
 **Windows:**
 
-Install [Docker](https://docs.docker.com/docker-for-windows/install/), [Docker-compose](https://docs.docker.com/compose/install/#install-compose) and [Docker-sync](https://github.com/EugenMayer/docker-sync/wiki/docker-sync-on-Windows).
+Install [Docker](https://docs.docker.com/docker-for-windows/install/) and [Docker-sync](https://github.com/EugenMayer/docker-sync/wiki/docker-sync-on-Windows).
 
 **Linux:**
 
@@ -34,6 +41,7 @@ Just run these commands below in your terminal, change the MYMAGENTO2 to use the
 
 curl -s https://raw.githubusercontent.com/Imagination-Media/docker-magento2/master/init | bash -s MYMAGENTO2 clone
 cd MYMAGENTO2
+rm -rf src/*
 ./shell install-magento2
 
 ```
@@ -45,6 +53,7 @@ You can also clone this repository and run these commands:
 ```
 
 ./init MYMAGENTO2
+rm -rf src/*
 ./shell install-magento2
 
 ```
