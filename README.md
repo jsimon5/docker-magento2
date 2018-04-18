@@ -34,6 +34,7 @@ Just run these commands below in your terminal, change the MYMAGENTO2 to use the
 
 curl -s https://raw.githubusercontent.com/Imagination-Media/docker-magento2/master/init | bash -s MYMAGENTO2 clone
 cd MYMAGENTO2
+rm -rf src/*
 ./shell install-magento2
 
 ```
@@ -45,6 +46,7 @@ You can also clone this repository and run these commands:
 ```
 
 ./init MYMAGENTO2
+rm -rf src/*
 ./shell install-magento2
 
 ```
