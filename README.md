@@ -14,11 +14,18 @@
 
 **MacOS:**
 
-Install [Docker](https://docs.docker.com/docker-for-mac/install/), [Docker-compose](https://docs.docker.com/compose/install/#install-compose) and [Docker-sync](https://github.com/EugenMayer/docker-sync/wiki/docker-sync-on-OSX).
+Install [Docker](https://download.docker.com/mac/stable/Docker.dmg) and run:
+
+```
+    gem install docker-sync
+    brew install unison
+    brew install eugenmayer/dockersync/unox
+
+```
 
 **Windows:**
 
-Install [Docker](https://docs.docker.com/docker-for-windows/install/), [Docker-compose](https://docs.docker.com/compose/install/#install-compose) and [Docker-sync](https://github.com/EugenMayer/docker-sync/wiki/docker-sync-on-Windows).
+Install [Docker](https://docs.docker.com/docker-for-windows/install/) and [Docker-sync](https://github.com/EugenMayer/docker-sync/wiki/docker-sync-on-Windows).
 
 **Linux:**
 
