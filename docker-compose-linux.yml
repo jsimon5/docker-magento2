@@ -76,7 +76,7 @@ services:
           - PMA_PASSWORD=root
           - MYSQL_ROOT_PASSWORD=root
       ports:
-          - 8080:80
+          - 8088:80
       networks:
           - <project_name>-network
 
