@@ -2,6 +2,10 @@
 
 export os=$(uname)
 
+rm ./start ./stop
+cp .docker-files/stop ./
+cp .docker-files/start ./
+
 if [ -f system.log ]; then
     rm system.log
 fi
@@ -54,11 +58,22 @@ sudo chmod -R u+x ~/.nvm
 
 echo "Check OS" >> system.log
 
-echo "Docker Compose for Linux" >> system.log
-cp docker-compose-linux.yml docker-compose.yml
+if [ "$(uname)" == "Darwin" ]; then
+    echo "Docker Compose for MacOS" >> system.log
+    cp docker-compose-macos.yml docker-compose.yml
+    cp docker-sync-macos.yml docker-sync.yml
+elif [ "$(uname)" == "cygwin" ] || [ "$(uname)" == "msys" ] || [ "$(uname)" == "win32" ]; then
+    echo "Docker Compose for Windows" >> system.log
+    cp docker-compose-macos.yml docker-compose.yml
+    cp docker-sync-macos.yml docker-sync.yml
+else
+    echo "Docker Compose for Linux" >> system.log
+    cp docker-compose-linux.yml docker-compose.yml
+fi
 
 echo "Changing project name on files" >> system.log
 sed -i '' -e "s/<project_name>/$project_name/g" docker-compose.yml
+sed -i '' -e "s/<project_name>/$project_name/g" docker-sync.yml
 
 clear
 

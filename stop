@@ -1,9 +1,3 @@
 #!/usr/bin/env bash
-export os=$(uname)
 
 docker-compose stop
-
-if [ ! $os == "Linux" ]; then
-    docker-sync stop
-    #docker-sync clean
-fi
