@@ -4,6 +4,7 @@ export os=$(uname)
 
 if [ ! $os == "Linux" ]; then
     sudo ifconfig lo0 alias 10.254.254.254
+    docker-sync start
 fi
 
 docker-compose up -d && \
@@ -21,3 +22,7 @@ echo "
       ✉️ Local emails: http://localhost:8025
 
 ===================== 🚀 Done 🚀 ==================="
+
+if [ ! $os == "Linux" ]; then
+    docker-sync sync
+fi
