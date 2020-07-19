@@ -14,16 +14,24 @@ else
     export project_name=$1
 fi
 
-if ! grep -F "dev.local" /etc/hosts
+if [ -z $2 ]; then
+    echo "What is your project url?"
+    read project_url
+    export project_url=$project_url
+else
+    export project_url=$2
+fi
+
+if ! grep -F "$2" /etc/hosts
 then
     if [ ! $os == "Linux" ]; then        
-        sudo -- sh -c -e "echo '10.254.254.254   dev.local' >> /etc/hosts";
+        sudo -- sh -c -e "echo '10.254.254.254   $project_url' >> /etc/hosts";
     else
-        sudo -- sh -c -e "echo '127.0.0.1   dev.local' >> /etc/hosts";
+        sudo -- sh -c -e "echo '127.0.0.1   $project_url' >> /etc/hosts";
     fi
 fi
 
-if [ "$2" == "clone" ]; then
+if [ "$3" == "clone" ]; then
     git clone https://github.com/Imagination-Media/docker-magento2 $project_name && cd $project_name;
     echo "Git clone done" >> system.log
 fi
@@ -59,6 +67,13 @@ cp docker-compose-linux.yml docker-compose.yml
 
 echo "Changing project name on files" >> system.log
 sed -i '' -e "s/<project_name>/$project_name/g" docker-compose.yml
+sed -i '' -e "s/<project_url>/$project_url/g" docker-compose.yml
+
+echo "Nginx conf file" >> system.log
+cp images/nginx/config/default.conf.sample images/nginx/config/default.conf
+
+echo "Changing project url on files" >> system.log
+sed -i '' -e "s/<project_url>/$project_url/g" images/nginx/config/default.conf
 
 clear
 

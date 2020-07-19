@@ -26,7 +26,7 @@ services:
       ports:
           - 9000:9000
       environment:
-          XDEBUG_CONFIG: "remote_host=dev.local"
+          XDEBUG_CONFIG: "remote_host=<project_url>"
           PHP_IDE_CONFIG: "serverName=Docker"
       volumes_from:
             - appdata

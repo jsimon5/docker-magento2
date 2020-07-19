@@ -1,6 +1,6 @@
 FROM php:7.1-fpm
 
-MAINTAINER Imagination Media <rafael@imaginationmedia.com>
+LABEL Justin Simon <contact@jsimon.me>
 
 ENV XDEBUG_PORT 9000
 

@@ -1,6 +1,6 @@
 FROM nginx:1.9
 
-MAINTAINER Imagination Media <rafael@imaginationmedia.com>
+LABEL Justin Simon <contact@jsimon.me>
 
 RUN usermod -u 1000 www-data
 
