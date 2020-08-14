@@ -2,6 +2,10 @@
 
 export os=$(uname)
 
+rm ./start ./stop
+cp .docker-files/stop ./stop
+cp .docker-files/start ./start
+
 if [ -f system.log ]; then
     rm system.log
 fi
@@ -24,7 +28,7 @@ fi
 
 if ! grep -F "$2" /etc/hosts
 then
-    if [ ! $os == "Linux" ]; then        
+    if [ ! $os == "Linux" ]; then
         sudo -- sh -c -e "echo '10.254.254.254   $project_url' >> /etc/hosts";
     else
         sudo -- sh -c -e "echo '127.0.0.1   $project_url' >> /etc/hosts";
